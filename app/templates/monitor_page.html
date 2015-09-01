@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8" />
+    <title>{{redis_info.RD_NAME}} - {{redis_info.RD_HOST}}: {{redis_info.RD_PORT}} - Redis Monitor</title>
+    <link rel="stylesheet" type="text/css" href="/static/res/css/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta name="Keywords" content="redis monitor,python web, flask redis" />
+    <meta name="Description" content="Redis Monitor: a python flask redis monitor project." />
+    <link rel="shortcut icon" href="/static/res/favicon.ico"/>
+    <link rel="bookmark" href="/static/res/favicon.ico"/>
+</head>
+<body>
+    <div id="wrapper" redis_index="{{redis_info.RD_INDEX}}">
+        <p class="breadcrumb">
+            <a href="/"><HEAD></HEAD>Home</a> &gt; {{redis_info.RD_HOST}}: {{redis_info.RD_PORT}} Monitor
+        </p>
+        <div class="bdsharebuttonbox" style="float:right;">
+            <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+            <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+            <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+            <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+            <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+            <a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a>
+            <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+            <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+            <a class="bds_count" data-cmd="count"></a>
+        </div>
+        <h1>{{redis_info.RD_NAME}} [{{redis_info.RD_HOST}}:{{redis_info.RD_PORT}}] Redis Monitor Informations </h1>
+        <!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-7292810486004926"
+             data-ad-slot="9220497478"
+             data-ad-format="auto"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script> -->
+        <table id="data_table" width="100%" border="0" cellpadding="10" cellspacing="1" bgcolor="#CCCCCC" style="margin:1em 0;">
+            <tbody>
+            	<tr class="th_group">
+            		<th colspan="8">Server服务端</th>
+            	</tr>
+            	<tr>
+                    <th>Vesion</th>
+                    <th colspan="3">OS</th>
+                    <th>Process_ID</th>
+                    <th>Up_Time</th>
+                    <th>Connection</th>
+                    <th>Blocked</th>
+                </tr>
+                <tr>
+                    <td id="redis_version"></td>
+                    <td id="os" colspan="3"></td>
+                    <td id="process_id"></td>
+                    <td id="uptime_in_seconds"></td>
+                    <td id="connected_clients" class="star"></td>
+                    <td id="blocked_clients" class="star"></td>
+                </tr>
+                <tr class="th_group">
+            		<th colspan="8">Stats相关内容</th>
+            	</tr>
+            	<tr>
+                    <th>connect_received</th>
+                    <th>cmd_processed</th>
+                    <th>ops_per_sec</th>
+                    <th>rejected_connect</th>
+                    <th>expired_keys</th>
+                    <th>evicted_keys</th>
+                    <th>hits</th>
+                    <th>misses</th>
+                </tr>
+                <tr>
+                    <td id="total_connections_received"></td>
+                    <td id="total_commands_processed"></td>
+                    <td id="instantaneous_ops_per_sec"></td>
+                    <td id="rejected_connections"></td>
+                    <td id="expired_keys"></td>
+                    <td id="evicted_keys"></td>
+                    <td id="keyspace_hits"></td>
+                    <td id="keyspace_misses"></td>
+                </tr>
+            	<tr class="th_group">
+            		<th colspan="8">DB数据库相关</th>
+            	</tr>
+                <tr>
+                    <th colspan="2">DB</th>
+                    <th colspan="2">keys</th>
+                    <th colspan="2">expires</th>
+                    <th colspan="2">avg_ttl</th>
+                </tr>
+                <tr class="rb_td">
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                    <td colspan="2"></td>
+                </tr>
+                
+            </tbody>
+        </table>
+        <div class="chart_div" id="time_chart"></div>
+        <div class="chart_div" id="ops_chart"></div>
+        <div class="chart_div" id="mem_chart"></div>
+        <div class="chart_div" id="cpu_chart"></div>
+        <h2>其他Redis服务器 </h2>
+        <ul>
+        	{% for r in redis %}
+                <li><a target="_blank" href="{{loop.index0}}.html">{{r.RD_NAME}}</a></li>
+            {% endfor %}
+        </ul>
+        <p class="footer">
+            <a href="/">Redis Monitor</a> &gt; Author By aTool.org
+        </p>
+    </div>
+    <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="static/res/lib/echarts/echarts.js"></script>
+    <script type="text/javascript" src="static/res/js/redis_monitor.js"></script>
+    <script type="text/javascript">
+    window._bd_share_config={"common":{"bdSnsKey":{"tsina":"2337303479","tqq":"801368329"},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+    </script>
+</body>
+</html>
