@@ -4,38 +4,30 @@ Created on 2015年6月16日
 
 @author: hzwangzhiwei
 '''
-from app import app, config
+from app import app
 import flask
-import redis
 from app.utils import RequestUtil, OtherUtil
 from flask.globals import request
 from app.monitors.RedisMonitor import RedisMonitor
 
 @app.route('/', methods=['GET'])
 def index_page():
-    redis = config.monitor_redis
-    return flask.render_template('index_page.html', redis = redis)
+    return flask.render_template('index_page.html')
 
-
-@app.route('/<redis_index>.html', methods=['GET'])
-def monitor_page(redis_index):
-    try:
-        redis_info = config.monitor_redis[int(redis_index)]
-        redis_info['RD_INDEX'] = int(redis_index)
-    except:
-        redis_info = None
-    if redis_info:
-        redis = config.monitor_redis
-        return flask.render_template('monitor_page.html', redis_info = redis_info, redis = redis)
-    return flask.render_template('tip.html', tip = u'访问的redis不存在！', url = '/', text = u'返回首页！') 
+@app.route('/redis/<redis_md5>.html', methods=['GET'])
+def redis_monitor_page(redis_md5):
+    return flask.render_template('redis_monitor_page.html', redis_md5 = redis_md5)
 
 
 @app.route('/redis_information.json', methods=['GET', 'POST'])
 def get_redis_paramter():
-    redis_index = RequestUtil.get_parameter(request, 'id', '0')
-    redis_info = config.monitor_redis[int(redis_index)]
-    rst = RedisMonitor().get_info(host = redis_info['RD_HOST'], port = redis_info['RD_PORT'], password = redis_info['RD_PSW'])
-    
+    try:
+        host = RequestUtil.get_parameter(request, 'host', '127.0.0.1')
+        port = int(RequestUtil.get_parameter(request, 'port', '6379'))
+        password = RequestUtil.get_parameter(request, 'password', '')
+        rst = RedisMonitor().get_info(host = host, port = port, password = password)
+    except:
+        rst = {'success': 0, 'data': ''}
     return OtherUtil.object_2_dict(rst)
 
 #定义404页面

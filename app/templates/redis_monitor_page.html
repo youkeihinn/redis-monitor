@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta charset="utf-8" />
-    <title>{{redis_info.RD_NAME}} - {{redis_info.RD_HOST}}: {{redis_info.RD_PORT}} - Redis Monitor</title>
+    <title>Redis Monitor</title>
     <link rel="stylesheet" type="text/css" href="/static/res/css/style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     <meta name="Keywords" content="redis monitor,python web, flask redis" />
@@ -12,9 +12,9 @@
     <link rel="bookmark" href="/static/res/favicon.ico"/>
 </head>
 <body>
-    <div id="wrapper" redis_index="{{redis_info.RD_INDEX}}">
+    <div id="wrapper" redis_md5="{{redis_md5}}">
         <p class="breadcrumb">
-            <a href="/"><HEAD></HEAD>Home</a> &gt; {{redis_info.RD_HOST}}: {{redis_info.RD_PORT}} Monitor
+            <a href="/"><HEAD></HEAD>Home</a> &gt; <span class="redis_host_port"></span> Monitor
         </p>
         <div class="bdsharebuttonbox" style="float:right;">
             <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
@@ -28,7 +28,7 @@
             <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
             <a class="bds_count" data-cmd="count"></a>
         </div>
-        <h1>{{redis_info.RD_NAME}} [{{redis_info.RD_HOST}}:{{redis_info.RD_PORT}}] Redis Monitor Informations </h1>
+        <h1>[<span class="redis_host_port"></span>] Redis Monitor Informations </h1>
         <!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <ins class="adsbygoogle"
              style="display:block"
@@ -105,18 +105,19 @@
         <div class="chart_div" id="mem_chart"></div>
         <div class="chart_div" id="cpu_chart"></div>
         <h2>其他Redis服务器 </h2>
-        <ul>
-        	{% for r in redis %}
-                <li><a target="_blank" href="{{loop.index0}}.html">{{r.RD_NAME}}</a></li>
-            {% endfor %}
+        <ul id="other_redis">
+             <li><a target="_blank" href="">111</a></li>
         </ul>
         <p class="footer">
             <a href="/">Redis Monitor</a> &gt; Author By aTool.org
         </p>
     </div>
-    <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
-    <script type="text/javascript" src="static/res/lib/echarts/echarts.js"></script>
-    <script type="text/javascript" src="static/res/js/redis_monitor.js"></script>
+    <script type="text/javascript" src="/static/res/lib/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/res/lib/md5.js"></script>
+    <script type="text/javascript" src="/static/res/js/common.js"></script>
+    <script type="text/javascript" src="/static/res/lib/simpleStorage.js"></script>
+    <script type="text/javascript" src="/static/res/lib/echarts/echarts.js"></script>
+    <script type="text/javascript" src="/static/res/js/redis_monitor.js"></script>
     <script type="text/javascript">
     window._bd_share_config={"common":{"bdSnsKey":{"tsina":"2337303479","tqq":"801368329"},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
     </script>
