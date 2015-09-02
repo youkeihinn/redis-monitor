@@ -9,7 +9,7 @@ import flask
 import redis
 from app.utils import RequestUtil, OtherUtil
 from flask.globals import request
-import time
+from app.monitors.RedisMonitor import RedisMonitor
 
 @app.route('/', methods=['GET'])
 def index_page():
@@ -32,23 +32,10 @@ def monitor_page(redis_index):
 
 @app.route('/redis_information.json', methods=['GET', 'POST'])
 def get_redis_paramter():
-    rst = {}
-    
     redis_index = RequestUtil.get_parameter(request, 'id', '0')
-    try:
-        start = time.time()
-        redis_info = config.monitor_redis[int(redis_index)]
-        r = redis.Redis(host = redis_info['RD_HOST'], port = redis_info['RD_PORT'], password = redis_info['RD_PSW'], db = 0)
-        info = r.info()
-        end = time.time();
-        info['get_time'] = end - start
-        
-        rst['success'] = 1
-        rst['data'] = info
-    except:
-        redis_info = None
-        rst['success'] = 0
-        rst['data'] = 'error'
+    redis_info = config.monitor_redis[int(redis_index)]
+    rst = RedisMonitor().get_info(host = redis_info['RD_HOST'], port = redis_info['RD_PORT'], password = redis_info['RD_PSW'])
+    
     return OtherUtil.object_2_dict(rst)
 
 #定义404页面
