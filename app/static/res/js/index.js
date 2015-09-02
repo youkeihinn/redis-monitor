@@ -1,3 +1,11 @@
+function add_demo_redis_btn_click() {
+	$('#new_host').val('10.246.13.189');
+	$('#new_port').val(6379);
+	$('#new_password').val('');
+	$('#new_email').val('不提醒');
+	add_redis_btn_click();
+}
+
 //点击添加按钮
 function add_redis_btn_click() {
 	var host = $('#new_host').val() || '';
