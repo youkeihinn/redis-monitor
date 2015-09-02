@@ -43,89 +43,91 @@ function fill_data_table(data) {
 	$('#data_table tbody').append(html);
 }
 
+function do_redis_status(data) {
+	var x_date = (new Date()).toLocaleTimeString().replace(/^\D*/,'');
+	if (data.success == 1) {
+		fill_data_table(data.data);
+		//update charts
+		timechart.addData([
+		   [
+              0,        // 系列索引
+              data.data.get_time,
+              false,
+              false,
+              x_date
+           ]
+        ]);
+		opschart.addData([
+		   [
+              0,
+              data.data.instantaneous_ops_per_sec,
+              false,
+              false,
+              x_date
+           ]
+        ]);
+		memchart.addData([
+		   [
+              0,
+              (data.data.used_memory / 1024).toFixed(2),
+              false,
+              false,
+              x_date
+           ],[
+              1,
+              (data.data.used_memory_rss / 1024).toFixed(2),
+              false,
+              false,
+              x_date
+           ]
+        ]);
+		
+		cpuchart.addData([
+		   [
+              0,
+              data.data.used_cpu_sys,
+              false,
+              false,
+              x_date
+           ],[
+              1,
+              data.data.used_cpu_user,
+              false,
+              false,
+              x_date
+           ],[
+              2,
+              data.data.used_cpu_user_children,
+              false,
+              false,
+              x_date
+           ],[
+              3,
+              data.data.used_cpu_sys_children,
+              false,
+              false,
+              x_date
+           ]
+           
+       ]);
+	}
+	else {
+		//填充空的数据
+		timechart.addData([[0, 0, false, false, x_date ]])
+		opschart.addData([[0, 0, false, false, x_date ]])
+		memchart.addData([[0, 0, false, false, x_date ], [0, 1, false, false, x_date ]])
+		cpuchart.addData([[0, 0, false, false, x_date ], [0, 1, false, false, x_date ], [0, 2, false, false, x_date ], [0, 3, false, false, x_date ]])
+	}
+	setTimeout(monitor_task, intervalTime);
+}
+
 function get_server_data() {
 	var ajax = $.ajax({
 		type: "POST",
 		url: '/redis_information.json',
 		timeout: 5000,
 		data: {'host': redis_info['host'], 'port': redis_info['port'], 'password': redis_info['password']},
-		success: function(data) {
-			var x_date = (new Date()).toLocaleTimeString().replace(/^\D*/,'');
-			if (data.success == 1) {
-				fill_data_table(data.data);
-				//update charts
-				timechart.addData([
-				   [
-                      0,        // 系列索引
-                      data.data.get_time,
-                      false,
-                      false,
-                      x_date
-                   ]
-                ]);
-				opschart.addData([
-				   [
-                      0,
-                      data.data.instantaneous_ops_per_sec,
-                      false,
-                      false,
-                      x_date
-                   ]
-                ]);
-				memchart.addData([
-				   [
-                      0,
-                      (data.data.used_memory / 1024).toFixed(2),
-                      false,
-                      false,
-                      x_date
-                   ],[
-                      1,
-                      (data.data.used_memory_rss / 1024).toFixed(2),
-                      false,
-                      false,
-                      x_date
-                   ]
-                ]);
-				
-				cpuchart.addData([
-				   [
-                      0,
-                      data.data.used_cpu_sys,
-                      false,
-                      false,
-                      x_date
-                   ],[
-                      1,
-                      data.data.used_cpu_user,
-                      false,
-                      false,
-                      x_date
-                   ],[
-                      2,
-                      data.data.used_cpu_user_children,
-                      false,
-                      false,
-                      x_date
-                   ],[
-                      3,
-                      data.data.used_cpu_sys_children,
-                      false,
-                      false,
-                      x_date
-                   ]
-                   
-               ]);
-			}
-			else {
-				//填充空的数据
-				timechart.addData([[0, 0, false, false, x_date ]])
-				opschart.addData([[0, 0, false, false, x_date ]])
-				memchart.addData([[0, 0, false, false, x_date ], [0, 1, false, false, x_date ]])
-				cpuchart.addData([[0, 0, false, false, x_date ], [0, 1, false, false, x_date ], [0, 2, false, false, x_date ], [0, 3, false, false, x_date ]])
-			}
-			setTimeout(monitor_task, intervalTime);
-		}, 
+		success: do_redis_status, 
 		dataType: 'json',
 		async: true,
 	});

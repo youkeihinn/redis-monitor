@@ -31,6 +31,25 @@ class RedisMonitor(object):
         m.update(s)
         return m.hexdigest()
     
+    def ping(self, host, port, password, charset = 'utf8'):
+        if host and port:
+            redis_rst = {}
+            #需要重新请求获得数据
+            try:
+                r = redis.Redis(host = host, port = port, password = password, db = 0)
+                r.info()
+                
+                redis_rst['success'] = 1
+                redis_rst['data'] = 'ping success'
+            except:
+                redis_rst['success'] = 0
+                redis_rst['data'] = 'ping error'
+            
+            return redis_rst
+        else:
+            #如果host，port非法，则直接返回错误
+            return {'success': 0, 'data': 'parameter error'}
+    
     def get_info(self, host, port, password, charset = 'utf8'):
         if host and port:
             key = self._md5(host + str(port))

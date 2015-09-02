@@ -10,8 +10,9 @@
     <meta name="Description" content="Redis Monitor: a python flask redis monitor project." />
     <link rel="shortcut icon" href="/static/res/favicon.ico"/>
     <link rel="bookmark" href="/static/res/favicon.ico"/>
+    <link href="/static/res/lib/olloading/loading.css" type="text/css" rel="stylesheet">
 </head>
-<body>
+<body id="body_content">
     <div id="wrapper">
         <p class="breadcrumb">
             <a href="/"><HEAD></HEAD>Home</a> &gt; Redis List
@@ -53,14 +54,6 @@
                     <th width="30%" bgcolor="#DDEEFF">添加时间</th>
                     <th width="20%" bgcolor="#DDEEFF">操作</th>
                 </tr>
-                <!-- 
-                {% for r in redis %}
-                <tr>
-                    <td bgcolor="#FFFFCC"><strong>{{r.RD_NAME}}</strong></td>
-                    <td bgcolor="#FFFFCC"><a href="{{loop.index0}}.html">{{r.RD_HOST}}:{{r.RD_PORT}}</a></td>
-                </tr>
-                {% endfor %}
-                 -->
             </tbody>
         </table>
         <p class="footer">
@@ -68,6 +61,8 @@
         </p>
     </div>
     <script type="text/javascript" src="/static/res/lib/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="/static/res/lib/olloading/loading-min.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="/static/res/lib/olloading/jquery.bgiframe.min.js" charset="UTF-8"></script> -->
     <script type="text/javascript" src="/static/res/js/common.js"></script>
     <script type="text/javascript" src="/static/res/lib/md5.js"></script>
     <script type="text/javascript" src="/static/res/lib/simpleStorage.js"></script>

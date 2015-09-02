@@ -22,12 +22,24 @@ def redis_monitor_page(redis_md5):
 @app.route('/redis_information.json', methods=['GET', 'POST'])
 def get_redis_paramter():
     try:
-        host = RequestUtil.get_parameter(request, 'host', '127.0.0.1')
+        host = RequestUtil.get_parameter(request, 'host', '1')
         port = int(RequestUtil.get_parameter(request, 'port', '6379'))
         password = RequestUtil.get_parameter(request, 'password', '')
         rst = RedisMonitor().get_info(host = host, port = port, password = password)
     except:
         rst = {'success': 0, 'data': ''}
+    return OtherUtil.object_2_dict(rst)
+
+
+@app.route('/redis_ping.json', methods=['GET', 'POST'])
+def redis_ping():
+    try:
+        host = RequestUtil.get_parameter(request, 'host', '')
+        port = int(RequestUtil.get_parameter(request, 'port', '6379'))
+        password = RequestUtil.get_parameter(request, 'password', '')
+        rst = RedisMonitor().ping(host = host, port = port, password = password)
+    except:
+        rst = {'success': 0, 'data': 'ping error'}
     return OtherUtil.object_2_dict(rst)
 
 #定义404页面

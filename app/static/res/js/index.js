@@ -6,6 +6,45 @@ function add_demo_redis_btn_click() {
 	add_redis_btn_click();
 }
 
+function ping_redis(host, port, password, email) {
+//	loading.show();
+	$('form input').attr("disabled","disabled");  
+	var ajax = $.ajax({
+		type: "POST",
+		url: '/redis_ping.json',
+		data: {'host': host, 'port': port, 'password': password},
+		success: function(data) {
+			if (data.success == 1) {
+				var redis_info = {};
+				redis_info['host'] = host;
+				redis_info['port'] = port;
+				redis_info['password'] = password;
+				redis_info['email'] = email;
+				redis_info['time'] = new Date().Format("yyyy-MM-dd hh:mm:ss");
+				redis_info['timestamp'] = Date.parse(new Date());
+				
+				var key = 'redis_' + _redis_md5(redis_info);
+				simpleStorage.set(key, redis_info, 0);
+				redis_servers.push(redis_info);
+				sort_redis_server();
+				
+				add_onerow_2_table(redis_info);
+				$('form')[0].reset();
+				$('form input').removeAttr("disabled");
+//				loading.hide();
+			}
+			else {
+//				loading.hide();
+				$('form input').removeAttr("disabled");
+				alert(data.data);
+			}
+		}, 
+		dataType: 'json',
+		async: true,
+	});
+}
+
+
 //点击添加按钮
 function add_redis_btn_click() {
 	var host = $('#new_host').val() || '';
@@ -19,21 +58,7 @@ function add_redis_btn_click() {
 		return ;
 	}
 	
-	var redis_info = {};
-	redis_info['host'] = host;
-	redis_info['port'] = port;
-	redis_info['password'] = password;
-	redis_info['email'] = email;
-	redis_info['time'] = new Date().Format("yyyy-MM-dd hh:mm:ss");
-	redis_info['timestamp'] = Date.parse(new Date());
-	
-	var key = 'redis_' + _redis_md5(redis_info);
-	simpleStorage.set(key, redis_info, 0);
-	redis_servers.push(redis_info);
-	sort_redis_server();
-	
-	add_onerow_2_table(redis_info);
-	$('form')[0].reset();
+	ping_redis(host, port, password, email);
 }
 
 //删除redis
