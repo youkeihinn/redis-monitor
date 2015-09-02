@@ -1,4 +1,4 @@
-var intervalTime = 2000; //监控频率
+var intervalTime = 1000; //监控频率
 var is_start = true; //已经开始监控
 
 function monitor_task() {
