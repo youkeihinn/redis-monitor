@@ -201,10 +201,7 @@ function get_line_option(text, subtext, legend, yAxis_name, y_format) {
                     res.push(0.0);
                 }
                 return res;
-            })(),
-            markPoint: {
-            	data : [{type : 'max', name: 'max'}]
-            }
+            })()
         }
 		option.series.push(s);
 	}
