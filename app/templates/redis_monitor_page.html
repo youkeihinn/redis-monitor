@@ -12,9 +12,9 @@
     <link rel="bookmark" href="/static/res/favicon.ico"/>
 </head>
 <body>
-    <div id="wrapper" redis_md5="{{redis_md5}}">
+    <div id="wrapper" redis_md5="{{redis.md5 or ''}}">
         <p class="breadcrumb">
-            <a href="/"><HEAD></HEAD>Home</a> &gt; <span class="redis_host_port"></span> Monitor
+            <a href="/"><HEAD></HEAD>Home</a> &gt; <span class="redis_host_port">{{redis.redis_host}}:{{redis.redis_port}}</span> Monitor
         </p>
         <div class="bdsharebuttonbox" style="float:right;">
             <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
@@ -28,7 +28,7 @@
             <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
             <a class="bds_count" data-cmd="count"></a>
         </div>
-        <h1>[<span class="redis_host_port"></span>] Redis Monitor Informations </h1>
+        <h1>[<span class="redis_host_port">{{redis.redis_host}}:{{redis.redis_port}}</span>] Redis Monitor Informations </h1>
         <!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <ins class="adsbygoogle"
              style="display:block"
@@ -104,18 +104,11 @@
         <div class="chart_div" id="ops_chart"></div>
         <div class="chart_div" id="mem_chart"></div>
         <div class="chart_div" id="cpu_chart"></div>
-        <h2>其他Redis服务器 </h2>
-        <ul id="other_redis">
-             <li><a target="_blank" href="">111</a></li>
-        </ul>
         <p class="footer">
             <a href="/">Redis Monitor</a> &gt; Author By aTool.org
         </p>
     </div>
     <script type="text/javascript" src="/static/res/lib/jquery.min.js"></script>
-    <script type="text/javascript" src="/static/res/lib/md5.js"></script>
-    <script type="text/javascript" src="/static/res/js/common.js"></script>
-    <script type="text/javascript" src="/static/res/lib/simpleStorage.js"></script>
     <script type="text/javascript" src="/static/res/lib/echarts/echarts.js"></script>
     <script type="text/javascript" src="/static/res/js/redis_monitor.js"></script>
     <script type="text/javascript">

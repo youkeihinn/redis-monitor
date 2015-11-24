@@ -126,7 +126,7 @@ function get_server_data() {
 		type: "POST",
 		url: '/redis_information.json',
 		timeout: 5000,
-		data: {'host': redis_info['host'], 'port': redis_info['port'], 'password': redis_info['password']},
+		data: {'md5': redis_md5},
 		success: do_redis_status, 
 		dataType: 'json',
 		async: true,
@@ -207,35 +207,15 @@ function get_line_option(text, subtext, legend, yAxis_name, y_format) {
 	return option;
 }
 
-//###########################
-var redis_info;
-
-function get_redis_key() {
-	var redis_md5 = $('#wrapper').attr('redis_md5');
-	redis_md5 = "redis_" + redis_md5;
-	return redis_md5
-}
-
-function fill_page(key) {
-	redis_info = get_redis(key);
-	if (redis_info) {
-		$('.redis_host_port').text(redis_info['host'] + ':' + redis_info['port']);
-		
-		//添加其他redis信息
-		$('#other_redis li').remove();
-		var redis = null;
-		var html = '';
-		for (var i in redis_servers) {
-			redis = redis_servers[i];
-			html = '<li><a target="_blank" href="/redis/'+_redis_md5(redis)+'.html">'+ redis['host'] + ':' + redis['port'] +'</a></li>';
-			$('#other_redis').append(html);
-		}
+var redis_md5 = '';
+function check_redis_exist() {
+	redis_md5 = $('#wrapper').attr('redis_md5');
+	if (redis_md5 == '') {
+		$('#wrapper').html('<h1>不存在这个redis实例。</h1>');
+		return false;
 	}
-	else {
-		$('#wrapper').html('<h1>不存在这个redis实例。</h1>')
-	}
+	return true;
 }
-//###########################
 
 
 var echarts = null;
@@ -264,10 +244,10 @@ require([
 		memchart = draw_chart('mem_chart', get_line_option('Redis内存实时占用情况', '', ['Redis内存占用', '系统分配内存'], '内存占用', ' Kb'));
 		cpuchart = draw_chart('cpu_chart', get_line_option('Redis实时CPU占用情况', '', ['cpu_user', 'cpu_sys', 'cpu_user_children', 'cpu_sys_children'], 'CPU消耗', ''));
 		//开启监控
-
-		load_all_redis_from_storage(); //加载本地数据
-		fill_page(get_redis_key());
-		monitor_task();
+		var r = check_redis_exist();
+		if (r) {
+			monitor_task();
+		}
     }
 );
 function draw_chart(e_id, option) {

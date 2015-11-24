@@ -54,6 +54,13 @@
                     <th width="30%" bgcolor="#DDEEFF">添加时间</th>
                     <th width="20%" bgcolor="#DDEEFF">操作</th>
                 </tr>
+                {% for redis in redis_all %}
+                <tr>
+                    <td><a target="_blank" href="/redis/{{redis.md5}}.html">{{redis.redis_host}}:{{redis.redis_port}}</a></td>
+                    <td>{{redis.add_time}}</td>
+                    <td><input type="button" onclick="del_redis('{{redis.md5}}')" value="删除"></td>
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
         <p class="footer">
@@ -61,11 +68,7 @@
         </p>
     </div>
     <script type="text/javascript" src="/static/res/lib/jquery.min.js"></script>
-    <!-- <script type="text/javascript" src="/static/res/lib/olloading/loading-min.js" charset="UTF-8"></script>
 	<script type="text/javascript" src="/static/res/lib/olloading/jquery.bgiframe.min.js" charset="UTF-8"></script> -->
-    <script type="text/javascript" src="/static/res/js/common.js"></script>
-    <script type="text/javascript" src="/static/res/lib/md5.js"></script>
-    <script type="text/javascript" src="/static/res/lib/simpleStorage.js"></script>
     <script type="text/javascript" src="/static/res/js/index.js"></script>
     <script type="text/javascript">
     window._bd_share_config={"common":{"bdSnsKey":{"tsina":"2337303479","tqq":"801368329"},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
