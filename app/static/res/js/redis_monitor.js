@@ -113,10 +113,10 @@ function do_redis_status(data) {
 	}
 	else {
 		//填充空的数据
-		timechart.addData([[0, 0, false, false, x_date ]])
-		opschart.addData([[0, 0, false, false, x_date ]])
-		memchart.addData([[0, 0, false, false, x_date ], [0, 1, false, false, x_date ]])
-		cpuchart.addData([[0, 0, false, false, x_date ], [0, 1, false, false, x_date ], [0, 2, false, false, x_date ], [0, 3, false, false, x_date ]])
+		timechart.addData([[0, 0, false, false, x_date]])
+		opschart.addData([[0, 0, false, false, x_date]])
+		memchart.addData([[0, 0, false, false, x_date], [1, 0, false, false, x_date]])
+		cpuchart.addData([[0, 0, false, false, x_date], [1, 0, false, false, x_date], [2, 0, false, false, x_date], [3, 0, false, false, x_date]])
 	}
 	setTimeout(monitor_task, intervalTime);
 }
