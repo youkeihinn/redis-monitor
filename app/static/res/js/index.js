@@ -1,8 +1,8 @@
 function add_demo_redis_btn_click() {
-	$('#new_host').val('10.246.13.189');
+	$('#new_host').val('127.0.0.1');
 	$('#new_port').val(6379);
-	$('#new_password').val('');
-	$('#new_email').val('');
+	$('#new_password').val('redis');
+	$('#new_email').val('i@atool.org');
 	add_redis_btn_click();
 }
 

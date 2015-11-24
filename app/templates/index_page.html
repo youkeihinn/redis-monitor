@@ -56,7 +56,7 @@
                 </tr>
                 {% for redis in redis_all %}
                 <tr>
-                    <td><a target="_blank" href="/redis/{{redis.md5}}.html">{{redis.redis_host}}:{{redis.redis_port}}</a></td>
+                    <td><a target="_blank" href="/redis/{{redis.md5}}.html">{{redis.redis_host}}:{{redis.redis_port}} Alert to {{redis.email or 'nobody'}}</a></td>
                     <td>{{redis.add_time}}</td>
                     <td><input type="button" onclick="del_redis('{{redis.md5}}')" value="删除"></td>
                 </tr>
