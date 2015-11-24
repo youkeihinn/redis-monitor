@@ -1,5 +1,6 @@
 var intervalTime = 1100; //监控频率
 var is_start = true; //已经开始监控
+var chart_data_length = 256; //图上的点数
 
 function monitor_task() {
 	if (is_start) {
@@ -160,7 +161,7 @@ function get_line_option(text, subtext, legend, yAxis_name, y_format) {
 	    dataZoom : {
 	        show : false,
 	        start : 0,
-	        end : 100
+	        end : chart_data_length
 	    },
 	    xAxis : [{
             type : 'category',
@@ -168,7 +169,7 @@ function get_line_option(text, subtext, legend, yAxis_name, y_format) {
             data : (function (){
                 var now = new Date();
                 var res = [];
-                var len = 100;
+                var len = chart_data_length;
                 while (len--) {
                     res.unshift(now.toLocaleTimeString().replace(/^\D*/,''));
                     now = new Date(now - 2000);
@@ -195,12 +196,15 @@ function get_line_option(text, subtext, legend, yAxis_name, y_format) {
             type:'line',
             data:(function (){
                 var res = [];
-                var len = 100;
+                var len = chart_data_length;
                 while (len--) {
                     res.push(0.0);
                 }
                 return res;
-            })()
+            })(),
+            markPoint: {
+            	data : [{type : 'max', name: 'max'}]
+            }
         }
 		option.series.push(s);
 	}
