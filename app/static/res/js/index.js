@@ -14,7 +14,6 @@ function ping_redis(host, port, password, email) {
 		url: '/api/ping',
 		data: {'host': host, 'port': port, 'password': password},
 		success: function(data) {
-			data.success = 1;
 			if (data.success == 1) {
 				add_redis(host, port, password, email);
 			}

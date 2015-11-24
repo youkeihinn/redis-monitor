@@ -8,4 +8,4 @@ for ((index=0;index<$len;index+=1));do
     kill -9 ${pidsArray[$index]}
 done
 sleep 1
-gunicorn --worker-class=gevent -w 4 -b 0.0.0.0:7259 run_monitor:app
+nohup gunicorn --worker-class=gevent -w 4 -b 0.0.0.0:7259 run_monitor:app &
