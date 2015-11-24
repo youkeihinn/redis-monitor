@@ -5,3 +5,10 @@
 [2015-11-24 17:26:48 +0000] [31539] [INFO] Booting worker with pid: 31539
 [2015-11-24 17:26:48 +0000] [31544] [INFO] Booting worker with pid: 31544
 [2015-11-24 17:26:48 +0000] [31545] [INFO] Booting worker with pid: 31545
+[2015-11-24 17:36:33 +0000] [2397] [INFO] Starting gunicorn 19.3.0
+[2015-11-24 17:36:33 +0000] [2397] [INFO] Listening at: http://0.0.0.0:7259 (2397)
+[2015-11-24 17:36:33 +0000] [2397] [INFO] Using worker: gevent
+[2015-11-24 17:36:33 +0000] [2402] [INFO] Booting worker with pid: 2402
+[2015-11-24 17:36:33 +0000] [2403] [INFO] Booting worker with pid: 2403
+[2015-11-24 17:36:33 +0000] [2413] [INFO] Booting worker with pid: 2413
+[2015-11-24 17:36:33 +0000] [2414] [INFO] Booting worker with pid: 2414
